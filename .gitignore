@@ -1,0 +1,50 @@
+# Python 바이너리
+__pycache__/
+*.py[cod]
+*.so
+
+# 가상환경
+venv/
+.venv/
+env/
+ENV/
+
+# 편집기 설정 파일
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 시스템 파일 (Mac/Windows)
+.DS_Store
+Thumbs.db
+
+# 로그 / 임시 파일
+*.log
+*.tmp
+*.bak
+
+# 환경설정 파일
+.env
+*.env
+
+# 빌드 결과물
+dist/
+build/
+*.egg-info/
+
+# pip 패키지 목록
+pip-wheel-metadata/
+
+# CSV, 이미지, 모델 같은 대용량 데이터 (필요에 따라)
+*.csv
+*.png
+*.jpg
+*.jpeg
+*.h5
+*.pt
+*.pth
+
+# Output, 결과 파일
+output/
+results/
