@@ -16,3 +16,5 @@ class CSVout:
         
         df = pd.DataFrame(rows, columns=['종목명', '평가금액', '보유량'])
         df.to_csv(self.filename, index=False, encoding='utf-8-sig')
+
+        return df
