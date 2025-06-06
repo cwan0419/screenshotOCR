@@ -25,12 +25,12 @@ def main():
     screenshotOCR.perform_ocr()  # Perform OCR on the image
     final_result = screenshotOCR.process_result()  # Process the OCR results
 
-    print("[DEBUG] OCR 결과:", final_result)  # Print the OCR results for debugging
+    # print("[DEBUG] OCR 결과:", final_result)  # Print the OCR results for debugging
 
     #5. OCR 결과를 CSV 파일로 저장합니다.
     OCR_result_df = csvMaker.write(final_result)  # Write the results to a CSV file
 
-    #6. OCR의 오류를 교정하기 위해 회사명 데이터프레임을 생성합니다.
+    #6. OCR의 오류를 교정합니다. 교정 과정에는 jaro_winkler_similarity 계산과 LLM의 판단이 들어갑니다.
     # 회사명 데이터프레임에는 유사도 점수 비교를 쉽게 하기 위해 유니코드 인덱스가 저장되어 있습니다.
     current_path = os.getcwd()
     csv_path = os.path.join(current_path, "inputs/company_info.csv")
@@ -42,12 +42,11 @@ def main():
 
     OCR_Corrector = OCRCorrector()
     OCR_Corrector.set_company_dataframe(csv_path)
-    OCR_Corrector.get_company_dataframe()  # Get the company names DataFrame
-    OCR_Corrector.correct_ocr_result(OCR_result_df)
-    OCR_result_df.to_csv(os.path.join(current_path, "output/corrected.csv"), index=False, encoding='utf-8-sig')  # Save the corrected OCR results to a CSV file
-
-    #7. OCR 결과의 회사명을 교정합니다.
-    
+    company_names_df = OCR_Corrector.get_company_dataframe()  # Get the company names DataFrame
+    company_names_df.to_csv(os.path.join(current_path, "output/company_names.csv"), index=False, encoding='utf-8-sig')
+    OCR_Corrector.correct_ocr_typo(OCR_result_df)
+    OCR_Corrector.correct_ocr_figures(OCR_result_df)
+    OCR_result_df.to_csv(os.path.join(current_path, "output/LLM_corrected.csv"), index=False, encoding='utf-8-sig')  # Save the corrected OCR results to a CSV file    
     
     print("OCR이 완료되었습니다.\noutput 폴더의 output.csv 파일을 확인하세요.")
     
