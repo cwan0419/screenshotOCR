@@ -22,9 +22,9 @@ class OCRreader:
     
     def read_image(self, image_path):
         # Load the image using OpenCV
-        self.img = None
-        self.result = None
-        self.stockDict = {} # initialize stockDict as an empty dictionary
+        # self.img = None
+        # self.result = None
+        # self.stockDict = {} # initialize stockDict as an empty dictionary
 
         self.img = cv2.imread(image_path)
         self.img_height, self.img_width = self.img.shape[:2]
@@ -71,7 +71,7 @@ class OCRreader:
                     last_key = list(self.stockDict.keys())[-1]
                     self.stockDict[last_key].append(text)
             
-            elif 1310/1440 < rh_x_ratio < 1330/1440 :
+            elif 1300/1440 < rh_x_ratio < 1340/1440 :
                 # print(rh_x_ratio, text)
                 if ('(' not in text) and (')' not in text): # price of stock
                     # print(f"Detected text: {text}, Probability: {prob:.2f}")
@@ -106,7 +106,9 @@ class OCRreader:
         rows = []
         for key, values in data.items():
             print(f"[DEBUG] {key}: {values}")
-            if len(values) < 2:
+            if len(values) == 0:
+                rows.append([key])
+            elif len(values) < 2:
                 price = values[0]
                 rows.append([key, price])
             else:

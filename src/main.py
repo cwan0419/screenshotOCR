@@ -18,7 +18,6 @@ def main():
     print(f"[DEBUG] {image_paths}")  # Print the image paths for debugging
 
     #2. OCR을 수행할 인스턴스를 생성합니다.
-    screenshotOCR = OCRreader(lang_list=['en','ko'])
 
     #3. 출력될 csv 파일의 경로를 지정하고 CSV파일을 출력할할 인스턴스를 생성합니다.
     output_path = os.path.join(current_path, "output/output.csv")
@@ -27,6 +26,7 @@ def main():
     #4. OCR을 수행합니다.
     final_results_df = []  # Initialize a list to store final results, Dictionaries' list.
     for image_path in image_paths:
+        screenshotOCR = OCRreader(lang_list=['en','ko'])
         screenshotOCR.read_image(image_path)  # Load the image
         screenshotOCR.perform_ocr()  # Perform OCR on the image
         # screenshotOCR.show_result()
