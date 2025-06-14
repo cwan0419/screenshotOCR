@@ -142,6 +142,9 @@ class OCRCorrector(CompanyListSetter):
             # print(response.text.strip()) # For Debug
 
             OCR_result_df.at[ocr_index, "종목명"] = response.text.strip()
+        
+        OCR_result_df.drop_duplicates(subset='종목명', keep='first', inplace=True)  # Remove duplicates based on '종목명'
+        print("OCR 결과 교정 완료!")  # For Debug
     
     def correct_ocr_figures(self, OCR_result_df):
         """ This method corrects unnecessary characters in OCR results.

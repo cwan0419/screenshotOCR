@@ -11,7 +11,8 @@ class CSVout:
                 price = values[0]
                 rows.append([key, price])
             else:
-                price, shares = values
+                price = values[0]
+                shares = values[1]
                 rows.append([key, price, shares])
         
         df = pd.DataFrame(rows, columns=['종목명', '평가금액', '보유량'])
